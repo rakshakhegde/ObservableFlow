@@ -1,0 +1,6 @@
+<resources>
+	<string name="app_name">Observable Flow Sample App</string>
+	<string name="char_count_msg">(Map) Number of characters is %d</string>
+	<string name="even_length_text">(Filter) Even length text %s</string>
+	<string name="changed_at">(Map) Changed at %s</string>
+</resources>
