@@ -1,7 +1,6 @@
 package me.rakshakhegde.observableflow
 
 import android.databinding.ObservableField
-import me.rakshakhegde.observableflow.onPropertyChanged
 
 /**
  * Created by rakshakhegde on 30/03/17.
@@ -13,6 +12,7 @@ inline fun <T, R> ObservableField<T>.map(crossinline f: (T) -> R): ObservableFie
 	return dstObsrv
 }
 
+@JvmOverloads
 inline fun <T> ObservableField<T>.filter(defaultVal: T? = null,
                                          crossinline predicate: (T) -> Boolean): ObservableField<T> {
 	val dstObsrv = ObservableField<T>(defaultVal)
