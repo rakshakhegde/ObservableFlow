@@ -13,8 +13,9 @@ inline fun <T, R> ObservableField<T>.map(crossinline f: (T) -> R): ObservableFie
 	return dstObsrv
 }
 
-inline fun <T> ObservableField<T>.filter(crossinline predicate: (T) -> Boolean): ObservableField<T> {
-	val dstObsrv = ObservableField<T>()
+inline fun <T> ObservableField<T>.filter(defaultVal: T? = null,
+                                         crossinline predicate: (T) -> Boolean): ObservableField<T> {
+	val dstObsrv = ObservableField<T>(defaultVal)
 	onPropertyChanged {
 		get().let {
 			if (predicate(it)) dstObsrv.set(it)
