@@ -1,4 +1,4 @@
-package com.instavans.instavansshippers.utils.ObservablesKotlinUtils
+package me.rakshakhegde.rxobservable
 
 import android.databinding.ObservableField
 import io.reactivex.Observable
