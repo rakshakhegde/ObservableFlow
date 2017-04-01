@@ -1,1 +1,1 @@
-include ':app', ':observableflow'
+include ':app', ':observableflow', ':rxobservable'
