@@ -2,8 +2,6 @@ package me.rakshakhegde.rxdatabinding
 
 import android.databinding.ObservableField
 import io.reactivex.Observable
-import io.reactivex.Single
-import io.reactivex.disposables.CompositeDisposable
 import me.rakshakhegde.observableflow.bind
 
 /**
@@ -28,23 +26,4 @@ fun <T> rx(observable: ObservableField<T>): Observable<T> {
 }
 
 @JvmOverloads
-fun <T> Observable<T>.toObservableField(defaultVal: T? = null,
-                                        compositeDisposable: CompositeDisposable? = null
-): ObservableField<T> {
-
-	val observableField = ObservableField<T>(defaultVal)
-	val disposable = subscribe(observableField::set)
-	compositeDisposable?.add(disposable)
-	return observableField
-}
-
-@JvmOverloads
-fun <T> Single<T>.toObservableField(defaultVal: T? = null,
-                                    compositeDisposable: CompositeDisposable? = null
-): ObservableField<T> {
-
-	val observableField = ObservableField<T>(defaultVal)
-	val disposable = subscribe { item -> observableField.set(item) }
-	compositeDisposable?.add(disposable)
-	return observableField
-}
+fun <T> Observable<T>.toField(defaultVal: T? = null) = ReadOnlyField(this, defaultVal)
