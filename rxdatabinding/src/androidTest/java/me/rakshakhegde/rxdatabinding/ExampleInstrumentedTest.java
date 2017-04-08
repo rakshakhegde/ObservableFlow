@@ -1,4 +1,4 @@
-package me.rakshakhegde.rxobservable;
+package me.rakshakhegde.rxdatabinding;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

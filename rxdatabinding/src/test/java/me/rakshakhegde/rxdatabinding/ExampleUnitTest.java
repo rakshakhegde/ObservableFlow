@@ -1,4 +1,4 @@
-package me.rakshakhegde.rxobservable;
+package me.rakshakhegde.rxdatabinding;
 
 import org.junit.Test;
 
