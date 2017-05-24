@@ -43,3 +43,20 @@ fun rxOnPropertyChange(vararg observables: android.databinding.Observable): Obse
 		}
 	}
 }
+
+fun rxBind(vararg observables: android.databinding.Observable): Observable<Int> {
+	return Observable.create { emitter ->
+
+		emitter.onNext(0)
+
+		val onPropertyChangedCallbacks = observables.map {
+			it.onPropertyChanged { emitter.onNext(0) }
+		}
+
+		emitter.setCancellable {
+			observables.zip(onPropertyChangedCallbacks).forEach { (observable, callback) ->
+				observable.removeOnPropertyChangedCallback(callback)
+			}
+		}
+	}
+}
