@@ -3,6 +3,7 @@ package me.rakshakhegde.rxdatabinding
 import android.databinding.ObservableField
 import io.reactivex.Observable
 import me.rakshakhegde.observableflow.bind
+import me.rakshakhegde.observableflow.onPropertyChanged
 
 /**
  * Created by rakshakhegde on 01/04/17.
@@ -32,7 +33,7 @@ fun rxbind(vararg observables: android.databinding.Observable): Observable<Int> 
 	return Observable.create { emitter ->
 
 		val onPropertyChangedCallbacks = observables.map {
-			it.bind { emitter.onNext(0) }
+			it.onPropertyChanged { emitter.onNext(0) }
 		}
 
 		emitter.setCancellable {
