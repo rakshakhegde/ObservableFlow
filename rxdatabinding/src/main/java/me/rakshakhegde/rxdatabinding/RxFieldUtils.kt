@@ -27,3 +27,18 @@ fun <T> rx(observable: ObservableField<T>): Observable<T> {
 
 @JvmOverloads
 fun <T> Observable<T>.toField(defaultVal: T? = null) = ReadOnlyField(this, defaultVal)
+
+fun rxbind(vararg observables: android.databinding.Observable): Observable<Int> {
+	return Observable.create { emitter ->
+
+		val onPropertyChangedCallbacks = observables.map {
+			it.bind { emitter.onNext(0) }
+		}
+
+		emitter.setCancellable {
+			observables.zip(onPropertyChangedCallbacks).forEach { (observable, callback) ->
+				observable.removeOnPropertyChangedCallback(callback)
+			}
+		}
+	}
+}

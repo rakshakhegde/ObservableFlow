@@ -28,7 +28,7 @@ class ReadOnlyField<T>(
 	Setter of ReadOnlyField does nothing. Merge with the source Observable instead. See
 	<a href="https://github.com/manas-chaudhari/android-mvvm/tree/master/Documentation/ObservablesAndSetters.md">
 	Documentation/ObservablesAndSetters.md</a>
-	""")
+	""", level = DeprecationLevel.ERROR)
 	override fun set(value: T) {
 	}
 
