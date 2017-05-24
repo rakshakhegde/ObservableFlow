@@ -2,8 +2,8 @@
 
 buildscript {
 	ext {
-		kotlin_version = '1.1.1'
-		compiler_version = "2.3.0"
+		kotlin_version = '1.1.2-3'
+		compiler_version = "2.4.0-alpha7"
 	}
 	repositories {
 		jcenter()
