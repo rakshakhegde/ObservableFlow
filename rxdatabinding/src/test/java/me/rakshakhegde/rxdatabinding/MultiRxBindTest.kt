@@ -13,33 +13,15 @@ import kotlin.test.assertEquals
 class MultiRxBindTest {
 
 	@Test
-	fun bind_only_1_observable() {
-		val src = ObservableField<String>("Rust")
-
-		val result: ObservableField<String> = rxbind(src)
-				.map { "Fe" + src.get() }
-				.toField("Iron")
-
-		assertEquals(expected = "Iron", actual = result.get())
-
-		// simulate binding in xml because ReadOnlyField will only subscribe in addOnPropertyChangedCallback
-		result.onPropertyChanged { }
-
-		assertEquals(expected = "FeRust", actual = result.get())
-	}
-
-	@Test
 	fun check_if_updates_for_1_observable() {
 		val src = ObservableField<String>("Rust")
 
-		val result: ObservableField<String> = rxbind(src)
+		val result: ObservableField<String> = rxOnPropertyChange(src)
 				.map { "Fe" + src.get() }
 				.toField("Iron")
 
 		// simulate binding in xml because ReadOnlyField will only subscribe in addOnPropertyChangedCallback
 		result.onPropertyChanged { }
-
-		assertEquals(expected = "FeRust", actual = result.get())
 
 		src.set("Water")
 		assertEquals(expected = "FeWater", actual = result.get())
@@ -49,7 +31,7 @@ class MultiRxBindTest {
 	fun ensure_removes_callback_for_1_observable() {
 		val src = ObservableField<String>("Rust")
 
-		val result: ObservableField<String> = rxbind(src)
+		val result: ObservableField<String> = rxOnPropertyChange(src)
 				.map { "Fe" + src.get() }
 				.toField("Iron")
 
@@ -59,7 +41,7 @@ class MultiRxBindTest {
 
 		src.set("Water")
 		// expect old result even after updating
-		assertEquals(expected = "FeRust", actual = result.get())
+		assertEquals(expected = "Iron", actual = result.get())
 	}
 
 	@Test
@@ -68,14 +50,34 @@ class MultiRxBindTest {
 		val src2 = ObservableBoolean()
 		val src3 = ObservableInt()
 
-		val result: ObservableField<String> = rxbind(src1, src2, src3)
+		val result: ObservableField<String> = rxOnPropertyChange(src1, src2, src3)
 				.map { src1.get() + src2.get() + src3.get() }
 				.toField("Iron")
 
 		// simulate binding in xml because ReadOnlyField will only subscribe in addOnPropertyChangedCallback
 		result.onPropertyChanged { }
 
-		assertEquals(expected = "Rustfalse0", actual = result.get())
+		src1.set("Haem")
+		assertEquals(expected = "Haemfalse0", actual = result.get())
+
+		src2.set(true)
+		assertEquals(expected = "Haemtrue0", actual = result.get())
+
+		src3.set(-1)
+		assertEquals(expected = "Haemtrue-1", actual = result.get())
+
+	}
+
+	@Test
+	fun bind_multi_observables_using_subscriber() {
+		val src1 = ObservableField<String>("Rust")
+		val src2 = ObservableBoolean()
+		val src3 = ObservableInt()
+
+		val result = ObservableField("defVal")
+		rxOnPropertyChange(src1, src2, src3)
+				.map { src1.get() + src2.get() + src3.get() }
+				.subscribe { result.set(it) }
 
 		src1.set("Haem")
 		assertEquals(expected = "Haemfalse0", actual = result.get())
