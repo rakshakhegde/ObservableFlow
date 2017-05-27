@@ -4,9 +4,9 @@ import android.databinding.ObservableArrayList
 import android.databinding.ObservableList
 import android.databinding.ObservableList.OnListChangedCallback
 import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.times
-import com.nhaarman.mockito_kotlin.verify
 import org.junit.Test
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 
 
 /**
