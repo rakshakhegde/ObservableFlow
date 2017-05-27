@@ -21,8 +21,10 @@ inline fun <T : Observable> T.bind(crossinline listener: T.(Int) -> Unit):
 	return onPropertyChanged(listener)
 }
 
-inline fun <T, R> ObservableField<T>.map(crossinline f: (T) -> R): ObservableField<R> {
-	val dstObsrv = ObservableField<R>(f(get()))
+inline fun <T, R> ObservableField<T>.map(
+		dstObsrv: ObservableField<R> = ObservableField<R>(),
+		crossinline f: (T) -> R
+): ObservableField<R> {
 	bind { dstObsrv.set(f(get())) }
 	return dstObsrv
 }
@@ -39,8 +41,14 @@ inline fun <T> ObservableField<T>.filter(defaultVal: T? = null,
 	return dstObsrv
 }
 
-inline fun bind(vararg sources: Observable, crossinline onChange: () -> Unit) {
+inline fun bind(vararg sources: Any, crossinline onChange: () -> Unit) {
+	onChange()
 	sources.forEach { observable ->
-		observable.bind { onChange() }
+		when (observable) {
+			is Observable -> observable.onPropertyChanged { onChange() }
+			else -> throw IllegalArgumentException(
+					"Only android.databinding.Observable & android.databinding.ObservableList allowed"
+			)
+		}
 	}
 }
