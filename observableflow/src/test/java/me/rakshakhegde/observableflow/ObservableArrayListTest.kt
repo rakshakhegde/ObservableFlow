@@ -26,7 +26,7 @@ class ObservableArrayListTest {
 	}
 
 	@Test
-	fun listOnListChangedGetsCalledWhenSetAtAParticularIndex() {
+	fun listListenerGetsCalledWhenSetAtAParticularIndex() {
 		val list = observableListOf("Rakshak", "", "Hegde")
 		val listener: ObservableArrayList<String>.() -> Unit = mock()
 		list.bindToList(listener)
