@@ -41,14 +41,9 @@ inline fun <T> ObservableField<T>.filter(defaultVal: T? = null,
 	return dstObsrv
 }
 
-inline fun bind(vararg sources: Any, crossinline onChange: () -> Unit) {
+inline fun bind(vararg sources: Observable, crossinline onChange: () -> Unit) {
 	onChange()
 	sources.forEach { observable ->
-		when (observable) {
-			is Observable -> observable.onPropertyChanged { onChange() }
-			else -> throw IllegalArgumentException(
-					"Only android.databinding.Observable & android.databinding.ObservableList allowed"
-			)
-		}
+		observable.onPropertyChanged { onChange() }
 	}
 }

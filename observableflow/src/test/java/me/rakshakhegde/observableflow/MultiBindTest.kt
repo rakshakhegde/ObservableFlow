@@ -65,11 +65,4 @@ class MultiBindTest {
 		verify(dst, times(3)).set(anyString())
 		assertEquals("Hola5", dst.get())
 	}
-
-	@Test(expected = IllegalArgumentException::class)
-	fun throws_for_non_observable_type() {
-		val integer = 0
-
-		bind(integer) {}
-	}
 }
