@@ -37,4 +37,17 @@ class ObservableArrayListTest {
 
 		verify(listener, times(2)).invoke(list)
 	}
+
+	@Test
+	fun listListenerGetsCalledWhenInsertedAtLast() {
+		val list = observableListOf("Rakshak", "R")
+		val listener: ObservableArrayList<String>.() -> Unit = mock()
+		list.bindToList(listener)
+
+		verify(listener).invoke(list)
+
+		list.add(3, "Hegde")
+
+		verify(listener, times(2)).invoke(list)
+	}
 }
