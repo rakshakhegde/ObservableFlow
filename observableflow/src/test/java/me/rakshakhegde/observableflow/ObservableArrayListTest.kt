@@ -7,6 +7,7 @@ import com.nhaarman.mockito_kotlin.mock
 import org.junit.Test
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
+import kotlin.test.assertEquals
 
 
 /**
@@ -46,8 +47,9 @@ class ObservableArrayListTest {
 
 		verify(listener).invoke(list)
 
-		list.add(3, "Hegde")
+		list.add(2, "Hegde")
 
 		verify(listener, times(2)).invoke(list)
+		assertEquals(listOf("Rakshak", "R", "Hegde"), list)
 	}
 }
