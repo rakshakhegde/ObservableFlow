@@ -47,3 +47,11 @@ inline fun bind(vararg sources: Observable, crossinline onChange: () -> Unit) {
 		observable.onPropertyChanged { onChange() }
 	}
 }
+
+inline fun <T> map(vararg sources: Observable, crossinline onChange: () -> T): ObservableField<T> {
+	val dst = ObservableField<T>(onChange())
+	sources.forEach { observable ->
+		observable.onPropertyChanged { dst.set(onChange()) }
+	}
+	return dst
+}
