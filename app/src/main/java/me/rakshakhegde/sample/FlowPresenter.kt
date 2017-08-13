@@ -1,5 +1,6 @@
 package me.rakshakhegde.sample
 
+import android.databinding.ObservableField
 import io.github.rakshakhegde.sugarprefs.obsrvprefs.ObsrvStringNotNullPref
 import me.rakshakhegde.observableflow.filter
 import me.rakshakhegde.observableflow.map
@@ -11,7 +12,7 @@ import java.util.*
  */
 class FlowPresenter {
 
-	val text = ObsrvStringNotNullPref(key = "MY_TEXT", defaultVal = "HELLO WORLD")
+	val text: ObservableField<String> = ObsrvStringNotNullPref(key = "MY_TEXT", defaultVal = "HELLO WORLD")
 
 	val length = text.map { it.length }
 
