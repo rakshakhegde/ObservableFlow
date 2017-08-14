@@ -38,7 +38,7 @@ I personally find writing code in a functional way just makes my logic neatly en
 
 ## Documentation
 
-Here are all the functions and extension functions for ObservableFields:
+Here are all the functions and extension functions for ObservableFields. Even though I've attempted to document how to use all the functional statements, the best source of documentation are the tests themselves. Here I'll just show the **function prototype** and **code snippet** in pairs. Hopefully meaning of the code becomes immediately apparent.
 
 * **map**
 	```
@@ -47,12 +47,19 @@ Here are all the functions and extension functions for ObservableFields:
 		crossinline f: (T) -> R
 	): ObservableField<R>
 	```
+	```
+	val text: ObservableField<String> = ObservableField("Hello World")
+	val textLength = text.map { it.length }
+	```
 * **filter**
 	```
 	inline fun <T> ObservableField<T>.filter(
 		defaultVal: T? = null,
 		crossinline predicate: (T) -> Boolean
 	): ObservableField<T>
+	```
+	```
+	val evenLengthTextOnly = text.filter { it.length % 2 == 0 }
 	```
 * **onPropertyChanged**
 	```
@@ -71,23 +78,6 @@ Here are all the functions and extension functions for ObservableFields:
 	inline fun bind(vararg sources: Observable, crossinline onChange: () -> Unit)
 	```
 
-Even though I've attempted to document how to use all the functional statements, the best source of documentation are the tests themselves. Here I'll just show the code snippets. Hopefully meaning of the code becomes immediately apparent.
-
-### map
-
-```
-val text: ObservableField<String> = ObservableField("Hello World")
-val textLength = text.map { it.length }
-```
-
-### filter
-```
-val evenLengthTextOnly = text.filter { it.length % 2 == 0 }
-```
-
-### onPropertyChanged
-```
-```
 
 ## Limitations/Missing parts
 
