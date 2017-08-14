@@ -41,40 +41,40 @@ I personally find writing code in a functional way just makes my logic neatly en
 Here are all the functions and extension functions for ObservableFields. Even though I've attempted to document how to use all the functional statements, the best source of documentation are the tests themselves. Here I'll just show the **function prototype** and **code snippet** in pairs. Hopefully meaning of the code becomes immediately apparent.
 
 * **map**
-	```
+	```kotlin
 	inline fun <T, R> ObservableField<T>.map(
 		dstObsrv: ObservableField<R> = ObservableField<R>(),
 		crossinline f: (T) -> R
 	): ObservableField<R>
 	```
-	```
+	```kotlin
 	val text: ObservableField<String> = ObservableField("Hello World")
 	val textLength = text.map { it.length }
 	```
 * **filter**
-	```
+	```kotlin
 	inline fun <T> ObservableField<T>.filter(
 		defaultVal: T? = null,
 		crossinline predicate: (T) -> Boolean
 	): ObservableField<T>
 	```
-	```
+	```kotlin
 	val evenLengthTextOnly = text.filter { it.length % 2 == 0 }
 	```
 * **onPropertyChanged**
-	```
+	```kotlin
 	inline fun <T : Observable> T.onPropertyChanged(
 		crossinline listener: T.(propertyId: Int) -> Unit
 	): Observable.OnPropertyChangedCallback
 	```
 * **bind**
-	```
+	```kotlin
 	inline fun <T : Observable> T.bind(
 		crossinline listener: T.(Int) -> Unit
 	): Observable.OnPropertyChangedCallback
 	```
 * **vararg bind**
-	```
+	```kotlin
 	inline fun bind(vararg sources: Observable, crossinline onChange: () -> Unit)
 	```
 
