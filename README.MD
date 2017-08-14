@@ -2,6 +2,8 @@
 
 # ObservableFlow
 
+To use this library you should be using Kotlin and DataBinding.
+
 ### Show some :heart:
 [![GitHub stars](https://img.shields.io/github/stars/rakshakhegde/ObservableFlow.svg?style=social&label=Star)](https://github.com/rakshakhegde/ObservableFlow) [![GitHub forks](https://img.shields.io/github/forks/rakshakhegde/ObservableFlow.svg?style=social&label=Fork)](https://github.com/rakshakhegde/ObservableFlow/fork) [![GitHub watchers](https://img.shields.io/github/watchers/rakshakhegde/ObservableFlow.svg?style=social&label=Watch)](https://github.com/rakshakhegde/ObservableFlow) [![GitHub followers](https://img.shields.io/github/followers/rakshakhegde.svg?style=social&label=Follow)](https://github.com/rakshakhegde)  
 [![Twitter Follow](https://img.shields.io/twitter/follow/rakshakhegde.svg?style=social)](https://twitter.com/rakshakhegde)
@@ -32,5 +34,61 @@ dependencies {
 
 ## Motivation
 
-I personally find writing code in a functional way just makes my logic neatly encapsulated and broken up into simple parts. So I built these functional constructs as a part of my other projects where I use DataBinding and Kotlin (which is almost always), that kinda emulates RxJava's map and filter which I loved and used a lot. So now I've open sourced it hoping others might find it useful too. Cheers :)
+I personally find writing code in a functional way just makes my logic neatly encapsulated and broken up into simple parts. So I built these functional constructs as a part of my other projects where I use DataBinding and Kotlin (which is almost always), that kinda emulates RxJava's map and filter which I loved and used a lot, for ObservableFields. So now I've open sourced it hoping others might find it useful too. Cheers :)
 
+## Documentation
+
+Here are all the functions and extension functions for ObservableFields:
+
+* **map**
+	```
+	inline fun <T, R> ObservableField<T>.map(
+		dstObsrv: ObservableField<R> = ObservableField<R>(),
+		crossinline f: (T) -> R
+	): ObservableField<R>
+	```
+* **filter**
+	```
+	inline fun <T> ObservableField<T>.filter(
+		defaultVal: T? = null,
+		crossinline predicate: (T) -> Boolean
+	): ObservableField<T>
+	```
+* **onPropertyChanged**
+	```
+	inline fun <T : Observable> T.onPropertyChanged(
+		crossinline listener: T.(propertyId: Int) -> Unit
+	): Observable.OnPropertyChangedCallback
+	```
+* **bind**
+	```
+	inline fun <T : Observable> T.bind(
+		crossinline listener: T.(Int) -> Unit
+	): Observable.OnPropertyChangedCallback
+	```
+* **vararg bind**
+	```
+	inline fun bind(vararg sources: Observable, crossinline onChange: () -> Unit)
+	```
+
+Even though I've attempted to document how to use all the functional statements, the best source of documentation are the tests themselves. Here I'll just show the code snippets. Hopefully meaning of the code becomes immediately apparent.
+
+### map
+
+```
+val text: ObservableField<String> = ObservableField("Hello World")
+val textLength = text.map { it.length }
+```
+
+### filter
+```
+val evenLengthTextOnly = text.filter { it.length % 2 == 0 }
+```
+
+### onPropertyChanged
+```
+```
+
+## Limitations/Missing parts
+
+* There are no extension functions for all the other primitive Observables, like `ObservableInt`, `ObservableFloat`, etc. because I didn't find these optimisations worthwhile to write code and tests for. So I just use `ObservableField<Int>`, `ObservableField<Float>`, etc even for Android projects.
