@@ -30,8 +30,10 @@ inline fun <T, R> ObservableField<T>.map(
 }
 
 @JvmOverloads
-inline fun <T> ObservableField<T>.filter(defaultVal: T? = null,
-                                         crossinline predicate: (T) -> Boolean): ObservableField<T> {
+inline fun <T> ObservableField<T>.filter(
+		defaultVal: T? = null,
+		crossinline predicate: (T) -> Boolean
+): ObservableField<T> {
 	val dstObsrv = ObservableField<T>(defaultVal)
 	bind {
 		get().let {
