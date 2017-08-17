@@ -5,7 +5,7 @@
 Functional Kotlin constructs like **map()**, **filter()** and many more for ObservableFields from Android Data Binding library.
 
 ### Show some :heart:
-[![GitHub stars](https://img.shields.io/github/stars/rakshakhegde/ObservableFlow.svg?style=social&label=Star)](https://github.com/rakshakhegde/ObservableFlow) [![GitHub forks](https://img.shields.io/github/forks/rakshakhegde/ObservableFlow.svg?style=social&label=Fork)](https://github.com/rakshakhegde/ObservableFlow/fork) [![GitHub watchers](https://img.shields.io/github/watchers/rakshakhegde/ObservableFlow.svg?style=social&label=Watch)](https://github.com/rakshakhegde/ObservableFlow) [![GitHub followers](https://img.shields.io/github/followers/rakshakhegde.svg?style=social&label=Follow)](https://github.com/rakshakhegde)  
+[![GitHub stars](https://img.shields.io/github/stars/rakshakhegde/ObservableFlow.svg?style=social&label=Star)](https://github.com/rakshakhegde/ObservableFlow) [![GitHub forks](https://img.shields.io/github/forks/rakshakhegde/ObservableFlow.svg?style=social&label=Fork)](https://github.com/rakshakhegde/ObservableFlow/fork) [![GitHub watchers](https://img.shields.io/github/watchers/rakshakhegde/ObservableFlow.svg?style=social&label=Watch)](https://github.com/rakshakhegde/ObservableFlow) [![GitHub followers](https://img.shields.io/github/followers/rakshakhegde.svg?style=social&label=Follow)](https://github.com/rakshakhegde)
 [![Twitter Follow](https://img.shields.io/twitter/follow/rakshakhegde.svg?style=social)](https://twitter.com/rakshakhegde)
 
 ## Installation
@@ -51,6 +51,15 @@ Here are all the functions and extension functions for ObservableFields. Even th
 		crossinline f: (T) -> R
 	): ObservableField<R>
 	```
+* **vararg map**
+	```kotlin
+	val totalLength = map(text1, text2) {
+		text1.get().length + text2.get().length
+	}
+	```
+	```kotlin
+	inline fun <T> map(vararg sources: Observable, crossinline onChange: () -> T): ObservableField<T>
+	```
 * **filter**
 	```kotlin
 	val evenLengthTextOnly = text.filter { it.length % 2 == 0 }
@@ -63,7 +72,7 @@ Here are all the functions and extension functions for ObservableFields. Even th
 	```
 * **onPropertyChanged**
 	```kotlin
-	text.onPropertyChanged {
+	text.onPropertyChanged { // block executed for every subsequent property change
 		val newVal = get()
 		println("text changed to $newVal")
 	}
@@ -75,11 +84,22 @@ Here are all the functions and extension functions for ObservableFields. Even th
 	```
 * **bind**
 	```kotlin
+	text.bind { // block executed immediately and for every subsequent property change
+		val newVal = get()
+		println("text changed to $newVal")
+	}
+	```
+	```kotlin
 	inline fun <T : Observable> T.bind(
 		crossinline listener: T.(Int) -> Unit
 	): Observable.OnPropertyChangedCallback
 	```
 * **vararg bind**
+	```kotlin
+	bind(text1, text2) {
+		println(text1.get() + text2.get())
+	}
+	```
 	```kotlin
 	inline fun bind(vararg sources: Observable, crossinline onChange: () -> Unit)
 	```
