@@ -11,7 +11,7 @@ Functional Kotlin constructs like **map()**, **filter()** and many more for Obse
 ## Installation
 
 In your global `build.gradle` file:
-```
+```gradle
 allprojects {
 	repositories {
 		...
@@ -20,13 +20,13 @@ allprojects {
 }
 ```
 Include any one of these in your app `build.gradle` file:
-```
+```gradle
 dependencies {
 	compile 'com.github.rakshakhegde.ObservableFlow:observableflow:23731b7bed'
 }
 ```
 (or, if you need RxJava 2 support)
-```
+```gradle
 dependencies {
 	compile 'com.github.rakshakhegde.ObservableFlow:rxdatabinding:23731b7bed'
 }
@@ -107,4 +107,4 @@ Here are all the functions and extension functions for ObservableFields. Even th
 
 ## Limitations/Missing parts
 
-* There are no extension functions for all the other primitive Observables, like `ObservableInt`, `ObservableFloat`, etc. because I didn't find these optimisations worthwhile to write code and tests for. So I just use `ObservableField<Int>`, `ObservableField<Float>`, etc even for Android projects.
+* There are no extension functions for all the other primitive Observables, like `ObservableInt`, `ObservableFloat`, etc. because I didn't find these optimisations worthwhile to write code and tests for. So I just use `ObservableField<Int>`, `ObservableField<Float>`, etc even for Android projects and they are auto-boxed, well, automatically.
