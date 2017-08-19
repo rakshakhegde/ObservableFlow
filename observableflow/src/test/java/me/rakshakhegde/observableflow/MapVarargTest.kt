@@ -7,7 +7,7 @@ import kotlin.test.assertEquals
 /**
  * Created by rakshakhegde on 25/05/17.
  */
-class VarargMapTest {
+class MapVarargTest {
 
 	@Test
 	fun ifMapForThreeObservablesNotifies() {
