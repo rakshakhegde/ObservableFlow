@@ -54,7 +54,7 @@ Here are all the functions and extension functions for ObservableFields. Even th
 	```
 	```kotlin
 	inline fun <T, R> ObservableField<T>.map(
-		dstObsrv: ObservableField<R> = ObservableField<R>(),
+		dstObsrv: ObservableField<R> = ObservableField(),
 		crossinline f: (T) -> R
 	): ObservableField<R>
 	```
