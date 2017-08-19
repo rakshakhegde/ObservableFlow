@@ -27,7 +27,7 @@ fun <T> rx(observable: ObservableField<T>): Observable<T> {
 }
 
 @JvmOverloads
-fun <T> Observable<T>.toField(defaultVal: T? = null) = ReadOnlyField(this, defaultVal)
+fun <T> Observable<T>.toField(defaultVal: T? = null) = RxObservableField(this, defaultVal)
 
 fun rxOnPropertyChange(vararg observables: android.databinding.Observable): Observable<Int> {
 	return Observable.create { emitter ->

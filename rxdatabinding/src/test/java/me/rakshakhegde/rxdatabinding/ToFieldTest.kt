@@ -1,6 +1,5 @@
 package me.rakshakhegde.rxdatabinding
 
-import android.databinding.ObservableField
 import io.reactivex.Observable
 import me.rakshakhegde.observableflow.onPropertyChanged
 import org.junit.Test
@@ -21,18 +20,6 @@ class ToFieldTest {
 		// simulate xml binding
 		result.onPropertyChanged { }
 
-		assertEquals(123, result.get())
-	}
-
-	@Test
-	fun check_if_toField_set_does_not_work() {
-		val result: ObservableField<Int> = Observable.just(123)
-				.toField(-1)
-
-		// simulate xml binding
-		result.onPropertyChanged { }
-
-		result.set(45)
 		assertEquals(123, result.get())
 	}
 }
