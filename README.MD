@@ -121,9 +121,19 @@ Here are all the functions and extension functions for ObservableFields. Even th
 	```kotlin
 	inline fun bind(vararg sources: Observable, crossinline onChange: () -> Unit): List<Observable.OnPropertyChangedCallback>
 	```
+* **observableListOf**
+
+* **bindToList**
+
+* **onListChanged**
 
 ### [RxDatabinding](https://github.com/rakshakhegde/ObservableFlow/tree/master/rxdatabinding)
 
+* **rx**
+
+* **toField**
+
+* **rxOnPropertyChanged**
 
 
 ## Limitations/Missing parts
