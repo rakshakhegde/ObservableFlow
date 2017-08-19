@@ -4,9 +4,12 @@
 
 Functional Kotlin constructs like **map()**, **filter()** and many more for ObservableFields from Android Data Binding library.
 
-### Show some :heart:
-[![GitHub stars](https://img.shields.io/github/stars/rakshakhegde/ObservableFlow.svg?style=social&label=Star)](https://github.com/rakshakhegde/ObservableFlow) [![GitHub forks](https://img.shields.io/github/forks/rakshakhegde/ObservableFlow.svg?style=social&label=Fork)](https://github.com/rakshakhegde/ObservableFlow/fork) [![GitHub watchers](https://img.shields.io/github/watchers/rakshakhegde/ObservableFlow.svg?style=social&label=Watch)](https://github.com/rakshakhegde/ObservableFlow) [![GitHub followers](https://img.shields.io/github/followers/rakshakhegde.svg?style=social&label=Follow)](https://github.com/rakshakhegde)
-[![Twitter Follow](https://img.shields.io/twitter/follow/rakshakhegde.svg?style=social)](https://twitter.com/rakshakhegde)
+```kotlin
+// tiny preview
+val source = ObservableField("source")
+val dest = source.filter { it.startsWith('s') }
+		.map { it.capitalize() }
+```
 
 ## Installation
 
@@ -35,6 +38,10 @@ dependencies {
 ## Motivation
 
 I personally find writing code in a functional way just makes my logic neatly encapsulated and broken up into simple parts. So I built these functional constructs as a part of my other projects where I use DataBinding and Kotlin (which is almost always), that kinda emulates RxJava's map and filter which I loved and used a lot, but for ObservableFields. So now I've open sourced it hoping others might find it useful too. Cheers :)
+
+> ### By the way, please show some :heart:
+> [![GitHub stars](https://img.shields.io/github/stars/rakshakhegde/ObservableFlow.svg?style=social&label=Star)](https://github.com/rakshakhegde/ObservableFlow) [![GitHub forks](https://img.shields.io/github/forks/rakshakhegde/ObservableFlow.svg?style=social&label=Fork)](https://github.com/rakshakhegde/ObservableFlow/fork) [![GitHub watchers](https://img.shields.io/github/watchers/rakshakhegde/ObservableFlow.svg?style=social&label=Watch)](https://github.com/rakshakhegde/ObservableFlow) [![GitHub followers](https://img.shields.io/github/followers/rakshakhegde.svg?style=social&label=Follow)](https://github.com/rakshakhegde)
+[![Twitter Follow](https://img.shields.io/twitter/follow/rakshakhegde.svg?style=social)](https://twitter.com/rakshakhegde)
 
 ## Documentation
 
