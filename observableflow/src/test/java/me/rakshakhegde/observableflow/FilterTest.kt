@@ -53,4 +53,13 @@ class FilterTest {
 
 		assertEquals(expected = "even", actual = dst.get())
 	}
+
+	@Test
+	fun example() {
+		val source = ObservableField("source")
+		val dest = source.filter { it.startsWith('s') }
+				.map { it.capitalize() }
+
+		assertEquals(expected = "Source", actual = dest.get())
+	}
 }
