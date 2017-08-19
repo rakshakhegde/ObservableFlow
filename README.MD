@@ -2,7 +2,7 @@
 
 # ObservableFlow
 
-Functional Kotlin constructs like **map()**, **filter()** and many more for ObservableFields from Android Data Binding library.
+Functional Kotlin constructs like **map()**, **filter()** and many more for ObservableFields from Android Data Binding library. Along with **RxJava 2** support
 
 ```kotlin
 // tiny preview
@@ -28,7 +28,7 @@ dependencies {
 	compile 'com.github.rakshakhegde.ObservableFlow:observableflow:23731b7bed'
 }
 ```
-(or, if you need RxJava 2 support)
+(or, if you need **RxJava 2** support)
 ```gradle
 dependencies {
 	compile 'com.github.rakshakhegde.ObservableFlow:rxdatabinding:23731b7bed'
@@ -89,6 +89,15 @@ Here are all the functions and extension functions for ObservableFields. Even th
 		crossinline listener: T.(propertyId: Int) -> Unit
 	): Observable.OnPropertyChangedCallback
 	```
+* **vararg onPropertyChanged**
+	```kotlin
+	onPropertyChanged(text1, text2) {
+		performAction(text1.get(), text2.get())
+	}
+	```
+	```kotlin
+	inline fun onPropertyChanged(vararg sources: Observable, crossinline onChange: () -> Unit): List<Observable.OnPropertyChangedCallback>
+	```
 * **bind**
 	```kotlin
 	text.bind { // block executed immediately and for every subsequent property change
@@ -108,7 +117,7 @@ Here are all the functions and extension functions for ObservableFields. Even th
 	}
 	```
 	```kotlin
-	inline fun bind(vararg sources: Observable, crossinline onChange: () -> Unit)
+	inline fun bind(vararg sources: Observable, crossinline onChange: () -> Unit): List<Observable.OnPropertyChangedCallback>
 	```
 
 
