@@ -51,12 +51,12 @@ inline fun <T> ObservableField<T>.filter(
 	return dstObsrv
 }
 
-inline fun bind(vararg sources: Observable, crossinline onChange: () -> Unit) = onChange().let {
-	onPropertyChanged(*sources) { onChange() }
-}
+inline fun bind(vararg sources: Observable, crossinline onChange: () -> Unit): List<Observable.OnPropertyChangedCallback> =
+		onChange().let {
+			onPropertyChanged(*sources) { onChange() }
+		}
 
-inline fun onPropertyChanged(vararg sources: Observable, crossinline onChange: () -> Unit) =
+inline fun onPropertyChanged(vararg sources: Observable, crossinline onChange: () -> Unit): List<Observable.OnPropertyChangedCallback> =
 		sources.map { observable ->
-		observable.onPropertyChanged { onChange() }
-	}
-
+			observable.onPropertyChanged { onChange() }
+		}
