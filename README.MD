@@ -2,7 +2,7 @@
 
 # ObservableFlow
 
-Functional Kotlin constructs like **map()**, **filter()** and many more for ObservableFields from Android Data Binding library. Along with **RxJava 2** support
+Functional Kotlin constructs like **map()**, **filter()** and many more for ObservableFields from Android Data Binding library. Along with **RxJava 2** support.
 
 ```kotlin
 // tiny preview
@@ -45,7 +45,9 @@ I personally find writing code in a functional way just makes my logic neatly en
 
 ## Documentation
 
-Here are all the functions and extension functions for ObservableFields. Even though I've attempted to document how to use all the functional statements, the best source of documentation are the tests themselves. Here I'll just show the **function prototype** and **code snippet** in pairs. Hopefully meaning of the code becomes immediately apparent.
+Here are all the functions and extension functions for ObservableFields. Even though I've attempted to document how to use all the functional statements, the best source of documentation are the **tests** themselves. Here I'll just show the **function prototype** and **code snippet** in pairs. Hopefully meaning of the code becomes immediately apparent.
+
+### [ObservableFlow](https://github.com/rakshakhegde/ObservableFlow/tree/master/observableflow)
 
 * **map**
 	```kotlin
@@ -119,6 +121,9 @@ Here are all the functions and extension functions for ObservableFields. Even th
 	```kotlin
 	inline fun bind(vararg sources: Observable, crossinline onChange: () -> Unit): List<Observable.OnPropertyChangedCallback>
 	```
+
+### [RxDatabinding](https://github.com/rakshakhegde/ObservableFlow/tree/master/rxdatabinding)
+
 
 
 ## Limitations/Missing parts
