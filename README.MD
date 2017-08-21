@@ -87,9 +87,8 @@ Here are all the functions and extension functions for ObservableFields. Even th
 	}
 	```
 	```kotlin
-	inline fun <T : Observable> T.onPropertyChanged(
-		crossinline listener: T.(propertyId: Int) -> Unit
-	): Observable.OnPropertyChangedCallback
+	inline fun <T : Observable> T.onPropertyChanged(crossinline listener: T.(propertyId: Int) -> Unit):
+		Observable.OnPropertyChangedCallback
 	```
 * **vararg onPropertyChanged**
 	```kotlin
@@ -98,7 +97,8 @@ Here are all the functions and extension functions for ObservableFields. Even th
 	}
 	```
 	```kotlin
-	inline fun onPropertyChanged(vararg sources: Observable, crossinline onChange: () -> Unit): List<Observable.OnPropertyChangedCallback>
+	inline fun onPropertyChanged(vararg sources: Observable, crossinline onChange: () -> Unit):
+		List<Observable.OnPropertyChangedCallback>
 	```
 * **bind**
 	```kotlin
@@ -119,13 +119,36 @@ Here are all the functions and extension functions for ObservableFields. Even th
 	}
 	```
 	```kotlin
-	inline fun bind(vararg sources: Observable, crossinline onChange: () -> Unit): List<Observable.OnPropertyChangedCallback>
+	inline fun bind(vararg sources: Observable, crossinline onChange: () -> Unit):
+		List<Observable.OnPropertyChangedCallback>
 	```
 * **observableListOf**
-
+	```kotlin
+	val observableInts = observableListOf(5, 6, 7, 9) // Int type inferred
+	```
+	```kotlin
+	fun <T> observableListOf(vararg items: T): ObservableArrayList<T>
+	```
 * **bindToList**
-
+	```kotlin
+	observableInts.bindToList { // block executed immediately and everytime anything changes in the list
+		forEach { item -> performActionOn(item) }
+	}
+	```
+	```kotlin
+	inline fun <T, S : ObservableList<T>> S.bindToList(crossinline listener: S.() -> Unit):
+		ObservableList.OnListChangedCallback<S>
+	```
 * **onListChanged**
+	```kotlin
+	observableInts.onListChanged { // block executed everytime anything changes in the list
+		forEach { item -> performActionOn(item) }
+	}
+	```
+	```kotlin
+	inline fun <T, S : ObservableList<T>> S.onListChanged(crossinline listener: S.() -> Unit):
+		ObservableList.OnListChangedCallback<S>
+	```
 
 ### [RxDatabinding](https://github.com/rakshakhegde/ObservableFlow/tree/master/rxdatabinding)
 
