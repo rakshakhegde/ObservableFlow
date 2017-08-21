@@ -11,7 +11,7 @@ class RxObservableField<T>(
 		defaultVal: T? = null
 ) : ObservableField<T>(defaultVal) {
 
-	private val source = source.doOnNext { super@RxObservableField.set(it) }
+	private val source = source.doOnNext { set(it) }
 			.onErrorResumeNext(Observable.empty())
 			.share()
 	private val subscriptions = HashMap<OnPropertyChangedCallback, Disposable>()
