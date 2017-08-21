@@ -9,14 +9,14 @@ import android.databinding.ObservableList
 fun <T> observableListOf(vararg items: T): ObservableArrayList<T> =
 		ObservableArrayList<T>().apply { addAll(items) }
 
-inline fun <T, S : ObservableList<T>> S.bindToList(crossinline listener: S.() -> Unit) {
+inline fun <T, S : ObservableList<T>> S.bindToList(crossinline listener: S.() -> Unit): ObservableList.OnListChangedCallback<S> {
 	// Call the callback as soon as listener is hooked up
 	listener()
-	onListChanged(listener)
+	return onListChanged(listener)
 }
 
-inline fun <T, S : ObservableList<T>> S.onListChanged(crossinline listener: S.() -> Unit) {
-	addOnListChangedCallback(object : ObservableList.OnListChangedCallback<S>() {
+inline fun <T, S : ObservableList<T>> S.onListChanged(crossinline listener: S.() -> Unit): ObservableList.OnListChangedCallback<S> {
+	val onListChangedCallback = object : ObservableList.OnListChangedCallback<S>() {
 
 		override fun onChanged(sender: S) {
 			listener()
@@ -37,5 +37,7 @@ inline fun <T, S : ObservableList<T>> S.onListChanged(crossinline listener: S.()
 		override fun onItemRangeChanged(sender: S, positionStart: Int, itemCount: Int) {
 			listener()
 		}
-	})
+	}
+	addOnListChangedCallback(onListChangedCallback)
+	return onListChangedCallback
 }
