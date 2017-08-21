@@ -87,9 +87,8 @@ Here are all the functions and extension functions for ObservableFields. Even th
 	}
 	```
 	```kotlin
-	inline fun <T : Observable> T.onPropertyChanged(
-		crossinline listener: T.(propertyId: Int) -> Unit
-	): Observable.OnPropertyChangedCallback
+	inline fun <T : Observable> T.onPropertyChanged(crossinline listener: T.(propertyId: Int) -> Unit):
+		Observable.OnPropertyChangedCallback
 	```
 * **vararg onPropertyChanged**
 	```kotlin
@@ -98,7 +97,8 @@ Here are all the functions and extension functions for ObservableFields. Even th
 	}
 	```
 	```kotlin
-	inline fun onPropertyChanged(vararg sources: Observable, crossinline onChange: () -> Unit): List<Observable.OnPropertyChangedCallback>
+	inline fun onPropertyChanged(vararg sources: Observable, crossinline onChange: () -> Unit):
+		List<Observable.OnPropertyChangedCallback>
 	```
 * **bind**
 	```kotlin
@@ -119,13 +119,36 @@ Here are all the functions and extension functions for ObservableFields. Even th
 	}
 	```
 	```kotlin
-	inline fun bind(vararg sources: Observable, crossinline onChange: () -> Unit): List<Observable.OnPropertyChangedCallback>
+	inline fun bind(vararg sources: Observable, crossinline onChange: () -> Unit):
+		List<Observable.OnPropertyChangedCallback>
 	```
 * **observableListOf**
-
+	```kotlin
+	val observableInts = observableListOf(5, 6, 7, 9) // Int type inferred
+	```
+	```kotlin
+	fun <T> observableListOf(vararg items: T): ObservableArrayList<T>
+	```
 * **bindToList**
-
+	```kotlin
+	observableInts.bindToList { // block executed immediately and everytime anything changes in the list
+		forEach { item -> performActionOn(item) }
+	}
+	```
+	```kotlin
+	inline fun <T, S : ObservableList<T>> S.bindToList(crossinline listener: S.() -> Unit):
+		ObservableList.OnListChangedCallback<S>
+	```
 * **onListChanged**
+	```kotlin
+	observableInts.onListChanged { // block executed everytime anything changes in the list
+		forEach { item -> performActionOn(item) }
+	}
+	```
+	```kotlin
+	inline fun <T, S : ObservableList<T>> S.onListChanged(crossinline listener: S.() -> Unit):
+		ObservableList.OnListChangedCallback<S>
+	```
 
 ### [RxDatabinding](https://github.com/rakshakhegde/ObservableFlow/tree/master/rxdatabinding)
 
@@ -136,6 +159,7 @@ Here are all the functions and extension functions for ObservableFields. Even th
 * **rxOnPropertyChanged**
 
 
-## Limitations/Missing parts
+## Miscellaneous
 
 * There are no extension functions for all the other primitive Observables, like `ObservableInt`, `ObservableFloat`, etc. because I didn't find these optimisations worthwhile to write code and tests for. So I just use `ObservableField<Int>`, `ObservableField<Float>`, etc even for Android projects and they are auto-boxed, well, automatically.
+* For the RxJava **toField()** binding, it was initially non-explicitly-writable, i.e., set() function was made useless and deprecated, so as to avoid side-effects, one of guiding principles of Functional Programming. But I once found myself desperately needing to change the value of that ObservableField imperatively. So I have reverted it back to a normal ObservableField whose value can be imperatively mutated anywhere in your code. But just don't go bonkers using this side-effect. Try and use it functionally as much as possible (:
