@@ -21,8 +21,8 @@ fun <T> Observable<T>.toField(defaultVal: T? = null): RxObservableField<T> = RxO
 fun rxOnPropertyChange(vararg observables: android.databinding.Observable): Observable<Int> {
 	return Observable.create { emitter ->
 
-		val onPropertyChangedCallbacks = observables.map {
-			it.onPropertyChanged { emitter.onNext(0) }
+		val onPropertyChangedCallbacks = onPropertyChanged(*observables) {
+			emitter.onNext(0)
 		}
 
 		emitter.setCancellable {
@@ -38,8 +38,8 @@ fun rxBind(vararg observables: android.databinding.Observable): Observable<Int> 
 
 		emitter.onNext(0)
 
-		val onPropertyChangedCallbacks = observables.map {
-			it.onPropertyChanged { emitter.onNext(0) }
+		val onPropertyChangedCallbacks = onPropertyChanged(*observables) {
+			emitter.onNext(0)
 		}
 
 		emitter.setCancellable {
