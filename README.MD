@@ -153,11 +153,41 @@ Here are all the functions and extension functions for ObservableFields. Even th
 ### [RxDatabinding](https://github.com/rakshakhegde/ObservableFlow/tree/master/rxdatabinding)
 
 * **rx**
-
-* **toField**
-
+	```kotlin
+	val nameObservable = ObservableField("First")
+	
+	nameObservable.rx()
+		.subscribe(onNext)
+	```
+	```kotlin
+	fun <T> ObservableField<T>.rx(): Observable<T>
+	```
+* **toField** - `share()`s the RxJava Observable so that when the last propertyChangedCallback is removed, the Observable is also finished
+	```kotlin
+	val dest = Observable.create<String> { emitter = it }
+			.toField()
+	```
+	```kotlin
+	fun <T> Observable<T>.toField(defaultVal: T? = null): RxObservableField<T>
+	```
 * **rxOnPropertyChanged**
-
+	```kotlin
+	rxOnPropertyChange(src1, src2, src3)
+		.map { src1.get() + src2.get() + src3.get() }
+		.subscribe(onNext)
+	```
+	```kotlin
+	fun rxOnPropertyChange(vararg observables: android.databinding.Observable): io.reactivex.Observable<Int>
+	```
+* **rxBind**
+	```kotlin
+	rxBind(src1, src2, src3)
+		.map { src1.get() + src2.get() + src3.get() }
+		.subscribe(onNext)
+	```
+	```kotlin
+	fun rxBind(vararg observables: android.databinding.Observable): io.reactivex.Observable<Int>
+	```
 
 ## Miscellaneous
 
