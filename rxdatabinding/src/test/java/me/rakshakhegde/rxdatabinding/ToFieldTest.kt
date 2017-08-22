@@ -1,13 +1,11 @@
 package me.rakshakhegde.rxdatabinding
 
-import android.databinding.ObservableField
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
-import me.rakshakhegde.observableflow.onPropertyChanged
 import org.junit.Test
 import kotlin.test.assertEquals
 
@@ -26,22 +24,22 @@ class ToFieldTest {
 
 		assertEquals(expected = null, actual = dest.get()) // not yet subscribed
 
-		val listener: ObservableField<String>.(propertyId: Int) -> Unit = mock()
-		val onPropertyChangedCallback = dest.onPropertyChanged(listener)
+		val onPropertyChangedCallback: android.databinding.Observable.OnPropertyChangedCallback = mock()
+		dest.addOnPropertyChangedCallback(onPropertyChangedCallback)
 
 		emitter!!.onNext("First")
 
-		verify(listener).invoke(dest, 0)
+		verify(onPropertyChangedCallback).onPropertyChanged(dest, 0)
 		assertEquals(expected = "First", actual = dest.get())
 
 		emitter!!.onNext("Second")
-		verify(listener, times(2)).invoke(dest, 0)
+		verify(onPropertyChangedCallback, times(2)).onPropertyChanged(dest, 0)
 		assertEquals(expected = "Second", actual = dest.get())
 
 		dest.removeOnPropertyChangedCallback(onPropertyChangedCallback)
 
 		emitter!!.onNext("Third")
-		verifyNoMoreInteractions(listener)
+		verifyNoMoreInteractions(onPropertyChangedCallback)
 		assertEquals(expected = "Second", actual = dest.get())
 	}
 
@@ -53,29 +51,29 @@ class ToFieldTest {
 		val obsField = Observable.create<String> { emitter = it }
 				.toField()
 
-		val listener1: ObservableField<String>.(propertyId: Int) -> Unit = mock()
-		val callback1 = obsField.onPropertyChanged(listener1)
+		val callback1: android.databinding.Observable.OnPropertyChangedCallback = mock()
+		obsField.addOnPropertyChangedCallback(callback1)
 
-		val listener2: ObservableField<String>.(propertyId: Int) -> Unit = mock()
-		val callback2 = obsField.onPropertyChanged(listener2)
+		val callback2: android.databinding.Observable.OnPropertyChangedCallback = mock()
+		obsField.addOnPropertyChangedCallback(callback2)
 
 		emitter!!.onNext("First")
 
-		verify(listener1).invoke(obsField, 0)
-		verify(listener2).invoke(obsField, 0)
+		verify(callback1).onPropertyChanged(obsField, 0)
+		verify(callback2).onPropertyChanged(obsField, 0)
 		assertEquals(expected = "First", actual = obsField.get())
 
 		obsField.removeOnPropertyChangedCallback(callback1)
 
 		emitter!!.onNext("Second")
-		verifyNoMoreInteractions(listener1)
-		verify(listener2, times(2)).invoke(obsField, 0)
+		verifyNoMoreInteractions(callback1)
+		verify(callback2, times(2)).onPropertyChanged(obsField, 0)
 		assertEquals(expected = "Second", actual = obsField.get())
 
 		obsField.removeOnPropertyChangedCallback(callback2)
 
 		emitter!!.onNext("Third")
-		verifyNoMoreInteractions(listener2)
+		verifyNoMoreInteractions(callback2)
 		assertEquals(expected = "Second", actual = obsField.get())
 
 	}

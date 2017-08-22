@@ -9,11 +9,11 @@ import me.rakshakhegde.observableflow.onPropertyChanged
  * Created by rakshakhegde on 01/04/17.
  */
 
-fun <T> rx(observable: ObservableField<T>): Observable<T> = Observable.create { emitter ->
+fun <T> ObservableField<T>.rx(): Observable<T> = Observable.create { emitter ->
 
-	val changedCallback = observable.bind { emitter.onNext(get()) }
+	val changedCallback = bind { emitter.onNext(get()) }
 
-	emitter.setCancellable { observable.removeOnPropertyChangedCallback(changedCallback) }
+	emitter.setCancellable { removeOnPropertyChangedCallback(changedCallback) }
 }
 
 fun <T> Observable<T>.toField(defaultVal: T? = null): RxObservableField<T> = RxObservableField(this, defaultVal)
