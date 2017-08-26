@@ -3,7 +3,7 @@
 
 # ObservableFlow
 
-Functional Kotlin constructs like **map()**, **filter()** and many more for ObservableFields from Android Data Binding library. Along with **RxJava 2** support.
+Functional Kotlin constructs like **map()**, **filter()** and 12 more functions built for Android Data Binding library + **RxJava 2** support
 
 ```kotlin
 // tiny preview
@@ -29,7 +29,7 @@ dependencies {
 	compile 'com.github.rakshakhegde.ObservableFlow:observableflow:23731b7bed'
 }
 ```
-(or, if you need **RxJava 2** support)
+(or, if you need **RxJava 2** support. This includes the above ObservableFlow core library.)
 ```gradle
 dependencies {
 	compile 'com.github.rakshakhegde.ObservableFlow:rxdatabinding:23731b7bed'
