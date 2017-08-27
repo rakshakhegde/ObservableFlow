@@ -6,7 +6,7 @@
 [![Release](https://jitpack.io/v/rakshakhegde/ObservableFlow.svg)](https://jitpack.io/#rakshakhegde/ObservableFlow)
 [![rakshakhegde newsletter](https://img.shields.io/badge/rakshakhegde-newsletter-green.svg)](https://upscri.be/b00b87/)
 
-Functional Kotlin constructs like **map()**, **filter()** and 12 more functions built for Android Data Binding library + **RxJava 2** support
+Functional Kotlin constructs like **map()**, **filter()** and **12 more functions** built for Android Data Binding library + **RxJava 2** support. Check out the release apk [**here**](https://github.com/rakshakhegde/ObservableFlow/releases).
 
 ```kotlin
 // tiny preview
