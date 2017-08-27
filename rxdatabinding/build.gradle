@@ -31,12 +31,12 @@ dependencies {
 	compile project(':observableflow')
 
 	compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-	compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+	compile 'io.reactivex.rxjava2:rxjava:2.1.2'
 
 
 	testCompile 'junit:junit:4.12'
 	testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-	testCompile 'org.mockito:mockito-core:2.8.9'
+	testCompile "org.mockito:mockito-core:$mockito_version"
 	testCompile("com.nhaarman:mockito-kotlin:1.4.0", {
 		exclude group: "org.jetbrains.kotlin", module: "kotlin-stdlib"
 	})
