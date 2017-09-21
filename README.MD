@@ -1,12 +1,16 @@
 # ObservableFlow
 ### Pt 1/3
 
+> Pt 2/3: [Stepper Indicator](https://github.com/rakshakhegde/stepper-indicator)
+>
+> Pt 3/3: [SugarPreferences](https://github.com/rakshakhegde/SugarPreferences)
+
 [![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=59253d166a9d060001bb2b30&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/59253d166a9d060001bb2b30/build/latest?branch=master)
 [![Minimum API 9](https://img.shields.io/badge/API-9+-blue.svg)](https://upscri.be/b00b87/)
 [![Release](https://jitpack.io/v/rakshakhegde/ObservableFlow.svg)](https://jitpack.io/#rakshakhegde/ObservableFlow)
-[![rakshakhegde newsletter](https://img.shields.io/badge/rakshakhegde-newsletter-red.svg)](https://upscri.be/b00b87/)
+[![rakshakhegde newsletter](https://img.shields.io/badge/rakshakhegde-newsletter-green.svg)](https://upscri.be/b00b87/)
 
-Functional Kotlin constructs like **map()**, **filter()** and 12 more functions built for Android Data Binding library + **RxJava 2** support
+Functional Kotlin constructs like **map()**, **filter()** and **12 more functions** built for Android Data Binding library + **RxJava 2** support. Check out the release apk [**here**](https://github.com/rakshakhegde/ObservableFlow/releases).
 
 ```kotlin
 // tiny preview
