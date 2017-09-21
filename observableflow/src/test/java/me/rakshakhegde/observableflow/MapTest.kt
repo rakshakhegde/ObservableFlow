@@ -1,6 +1,9 @@
 package me.rakshakhegde.observableflow
 
 import android.databinding.ObservableField
+import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.spy
+import com.nhaarman.mockito_kotlin.verify
 import org.junit.Test
 import kotlin.test.assertEquals
 
@@ -19,5 +22,18 @@ class MapTest {
 
 		src.set("World")
 		assertEquals(expected = "dlroW", actual = dst.get())
+	}
+
+	@Test
+	fun verify_if_map_operator_removes_callback_from_the_source_observable() {
+		val srcObservable = spy(ObservableField(1))
+		val dstObservable = srcObservable.map { }
+
+		verify(srcObservable).addOnPropertyChangedCallback(any())
+
+		val callback = dstObservable.onPropertyChanged { }
+		dstObservable.removeOnPropertyChangedCallback(callback)
+
+		verify(srcObservable).removeOnPropertyChangedCallback(any())
 	}
 }
