@@ -3,6 +3,7 @@ package me.rakshakhegde.observableflow
 import android.databinding.ObservableField
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.spy
+import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
 import org.junit.Test
 import kotlin.test.assertEquals
@@ -29,9 +30,12 @@ class MapTest {
 		val srcObservable = spy(ObservableField(1))
 		val dstObservable = srcObservable.map { }
 
-		verify(srcObservable).addOnPropertyChangedCallback(any())
+		verify(srcObservable, times(0)).addOnPropertyChangedCallback(any())
 
 		val callback = dstObservable.onPropertyChanged { }
+
+		verify(srcObservable).addOnPropertyChangedCallback(any())
+
 		dstObservable.removeOnPropertyChangedCallback(callback)
 
 		verify(srcObservable).removeOnPropertyChangedCallback(any())
