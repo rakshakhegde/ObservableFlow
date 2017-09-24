@@ -42,7 +42,7 @@ inline fun <T, S : ObservableList<T>> S.onListChanged(crossinline listener: S.()
 	return onListChangedCallback
 }
 
-class SimpleOnObservableListChangedCallback<V, R : ObservableList<V>> : ObservableList.OnListChangedCallback<R>() {
+open class SimpleOnObservableListChangedCallback<V, R : ObservableList<V>> : ObservableList.OnListChangedCallback<R>() {
 
 	override fun onChanged(sender: R) {
 	}
