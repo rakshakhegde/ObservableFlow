@@ -41,3 +41,21 @@ inline fun <T, S : ObservableList<T>> S.onListChanged(crossinline listener: S.()
 	addOnListChangedCallback(onListChangedCallback)
 	return onListChangedCallback
 }
+
+class SimpleOnObservableListChangedCallback<V, R : ObservableList<V>> : ObservableList.OnListChangedCallback<R>() {
+
+	override fun onChanged(sender: R) {
+	}
+
+	override fun onItemRangeInserted(sender: R, positionStart: Int, itemCount: Int) {
+	}
+
+	override fun onItemRangeRemoved(sender: R, positionStart: Int, itemCount: Int) {
+	}
+
+	override fun onItemRangeMoved(sender: R, fromPosition: Int, toPosition: Int, itemCount: Int) {
+	}
+
+	override fun onItemRangeChanged(sender: R, positionStart: Int, itemCount: Int) {
+	}
+}
